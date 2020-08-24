@@ -11,8 +11,8 @@ import re
 import json
 
 # link do site
-url = "https://www.ted.com/talks/helen_czerski_the_fascinating_physics_of_everyday_life/transcript?language=pt-br#t-81674"
-link= get(url="https://www.ted.com/talks/helen_czerski_the_fascinating_physics_of_everyday_life/transcript?language=pt-br#t-81674")
+url = "https://..."
+link= get(url="https://..."")
 
 # utilizamos o argumeto html.parser para que o python possa analisar
 soup = BeautifulSoup(link.text,'html.parser')
