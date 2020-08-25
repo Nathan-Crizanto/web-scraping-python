@@ -20,9 +20,11 @@ soup = BeautifulSoup(link.text,'html.parser')
 # função de capturar o nome do autor
 def author():
     if re.search('ted.com',url):
+          # em .find colocamos as tags que queremos capturar os dados. neste caso quis comecar com o a tag meta, colocando seus parametros e pegando somente o content onde está a informação
         autor = soup.find("meta",{"name":"author"}).get("content")
         return autor
     elif re.search('olhardigital.com.br',url):
+          # neste caso peguei somente a tag span com a class que o site determinou para ela
         autor = soup.find("span", {'class':'meta-item'}).text
         return autor
     elif re.search('startse.com',url):
@@ -34,16 +36,22 @@ def author():
 
 #função de capturar a descrição do artigo ou video
 def description():
+    # com re.search, você pode terminar uma condição diferente
+    # o primeiro parametro é os caracteres que vc quer, em seguida onde vc quer encontra-lo
     if re.search('ted.com',url):
         # Pegando cada tag p e colocando ela dentro de uma lista
         descricao = ""
+        # em soup.find_all , ele procurará todos as tags p na pagina
         d = soup.find_all("p")
+        # interação sobre a variavel d que vai concatenar com a variavel descrição
+         # em .find_all não é possivel utilizar o .text, por isso a interação e a conctenação.
         for d in d :
         # replace para retirar quebra de  .strip() não funcionou
             descricao+=(d.text.replace("\n",""))
         # replace para retirar os espacos
             descricao = descricao.replace("\t","")
         return descricao
+          
     elif re.search('olhardigital.com.br',url):
         descricao = ''
         # procuramos todas as tags para paragrafo, se tiver separado é só colocar a class da materia escolhida
@@ -64,6 +72,7 @@ def description():
 # replace utilizado para retirar partes desnecessarias
 def title():
     if re.search('ted.com',url):
+          # como o titulo tbm vinha com o nome do autor, eu coloquei um  .replace com a funções author para que somente o nome do autor fosse retirado
         titulo = (soup.find("title").text).replace(author(),"").replace(": ","").replace(" | TED Talk Subtitles and Transcript | TED","")
         return titulo
     elif re.search('olhardigital.com.br',url):
